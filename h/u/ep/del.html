@@ -1,0 +1,124 @@
+<body>
+<!-- 
+    <script>
+        function repost(){
+            s=document.querySelector('input[name=banners]:checked').value;
+            document.querySelector('#selectedBanner').value=s;
+        }
+    </script> -->
+{% for e in e%}
+    {% if e.de %}   
+    <div class="entries" >
+        <input name="e" value="{{e.uid}}">
+    </div>  
+    <div class="entry">
+        
+        <div class="avatar">
+            <img src="{{e.a.a.url}}" alt="{{e.a.p.n}} аватар" class="avatarImage">
+        </div>
+        <div class="name">
+            <a href="{{e.p.get_absolute_url}}" class="profileNameLink">
+                {%if e.a.n%}
+                    <h4 class="profileName">{{e.a.n}}</h4>
+                {%else%}
+                    <h4 class="profileName">{{e.a.u.username}}</h4>
+                {%endif%}
+            </a>
+        </div>
+        <div class="postDate">
+            {{e.ca|date:'d/m/Y'}}
+        </div>
+        <div>
+            <button>...</button>
+            <div>
+                <ul>
+                </ul>
+            </div>
+        </div>
+        <div class="entryContent">
+            {{e.de.t}}
+            {{e.de.c}}
+        </div>
+        <div class="actions">
+            <section>
+                <button id="repost" class="repost">Repost</button>
+            </section>
+            <div id="ea">
+                <button hx-post="{% url 'd:rl'%}" hx-target="#ea">Мне нравится!</button>
+            </div>
+        </div>
+    {% else %}
+    <div class="entries">
+        
+    </div>   
+    <div class="entry">
+        <div class="avatar">
+            <img src="{{e.a.a.url}}" alt="{{e.a.p.n}} аватар" class="avatarImage">
+        </div>
+        <div class="name">
+            <a href="{{e.p.get_absolute_url}}" class="profileNameLink">
+                {%if e.a.n%}
+                    <h4 class="profileName">{{e.a.n}}</h4>
+                {%else%}
+                    <h4 class="profileName">{{e.a.u.username}}</h4>
+                {%endif%}
+            </a>
+        </div>
+        <div class="postDate">
+            {{e.ca|date:'d/m/Y'}}
+        </div>
+        <div>
+            <button>...</button>
+            <div>
+                <ul>
+
+                </ul>
+            </div>
+        </div>
+        <div class="entryContent">
+            {{e.t}}
+            {{e.c}}
+        </div>
+        <div class="actions">
+                
+            <form method="POST">
+                {%csrf_token%}
+                    
+                    <input name="commentText" placeholder="comment">
+                    <input name="entryID" value="{{e.uid}}">
+                    <button type="submit" name="repost">Прокомментировать</button>
+
+            </form>
+
+                <form method="POST">
+                    {%csrf_token%}
+                    
+                    <input name="repostText" placeholder="s">
+                    <input name="postToRepost" id="postToRepost" value="{{e.uid}}">
+                    <button type="submit" name="repost">Поделиться</button>
+                </form>
+
+
+            <div id="ea">
+                <form method="POST">
+                {%csrf_token%}
+                <input name="entryUID" value="{{e.uid}}">
+                {% if l%}
+                <button hx-post="{% url 'd:el'%}" hx-target="#ea">Мне не нравится!</button>
+                {% else%}
+                <button hx-post="{% url 'd:el'%}" hx-target="#ea">Мне нравится!</button>
+                {% endif%}
+                </form>
+            </div>
+        </div> 
+    {% endif %}    
+                
+{%empty%}
+{%if p.n%}
+<p>У {{p.n}} еще нет записей :c</p>
+{%else%}
+<p>У @{{p.u.username}} еще нет записей :c</p>
+{%endif%}
+{%endfor%}
+
+    </body>

@@ -8,17 +8,12 @@ from .forms import RF
 
 from django.contrib.auth.models import User as U
 from .models import P
-from d.models import D,DE
+from d.models import D,DE,RE
+from d.forms import DF,DEF
 
-def p(r,username):
-    u = get_object_or_404(U,username=username)
-    p=P.objects.get(u=u)
-    d=D.objects.filter(a=p)
+from itertools import chain
+from operator import attrgetter
 
-    c={}
-    c['p'],c['d']=p,d
-
-    return render(r,'u/p.html',c)
 
 def l(request):
     if request.method=='POST':
@@ -57,3 +52,5 @@ def r(r):
     c={}
     c['f']=f
     return render(r,'a/r.html',c)
+
+

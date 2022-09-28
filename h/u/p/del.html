@@ -1,0 +1,81 @@
+
+
+<div class="entries" id="entries">
+
+
+    {% for e in e%}
+    <div id="{{e.uid}}" class="entries">
+        <p>{{e.uid}}</p>
+    </div>
+    {% if e.de %}   
+    <div class="entry" id="entry">
+        <div class="avatar">
+            <img src="{{e.a.a.url}}" alt="{{e.a.p.n}} аватар" class="avatarImage">
+        </div>
+        <div class="name">
+            <a href="{{e.p.get_absolute_url}}" class="profileNameLink">
+                {%if e.a.n%}
+                    <h4 class="profileName">{{e.a.n}}</h4>
+                {%else%}
+                    <h4 class="profileName">{{e.a.u.username}}</h4>
+                {%endif%}
+            </a>
+        </div>
+        <div class="postDate">
+            {{e.ca|date:'d/m/Y'}}
+        </div>
+        <div>
+            <button>...</button>
+            <div>
+                <ul>
+                    <button hx-delete="{%url 'd:dr' e.uid%}" hx-target="#entries">
+                        X
+                    </button>
+                </ul>
+            </div>
+        </div>
+        <div class="entryContent">
+            {{e.de.t}}
+            {{e.de.c}}
+        </div>
+
+        </div>
+    {% else %}   
+    <div class="entry" id="{{e.uid}}" name="e">
+        <div class="avatar">
+            <img src="{{e.a.a.url}}" alt="{{e.a.p.n}} аватар" class="avatarImage">
+        </div>
+        <div class="name">
+            <a href="{{e.p.get_absolute_url}}" class="profileNameLink">
+                {%if e.a.n%}
+                    <h4 class="profileName">{{e.a.n}}</h4>
+                {%else%}
+                    <h4 class="profileName">{{e.a.u.username}}</h4>
+                {%endif%}
+            </a>
+        </div>
+        <div class="postDate">
+            {{e.ca|date:'d/m/Y'}}
+        </div>
+        <div>
+            <button>...</button>
+            <div>
+                <ul>
+                    <button hx-delete="{%url 'd:de' e.uid%}" hx-target="#entries">
+                        X
+                    </button>
+                </ul>
+            </div>
+        </div>
+        <div class="entryContent">
+            {{e.t}}
+            {{e.c}}
+        </div> 
+        
+    </div>
+        
+    {% endif %}    
+                
+{%empty%}
+    <p>У вас еще нет записей!</p>
+{%endfor%}

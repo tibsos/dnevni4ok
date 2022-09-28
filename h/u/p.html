@@ -1,3 +1,4 @@
+{%load static%}
 <html>
     <head>
         <title>
@@ -7,10 +8,77 @@
         <meta content="origin" name="referrer">
         <meta name="description" content="">
         <meta name="keywords" content="">
+        <script src="https://unpkg.com/htmx.org@1.8.0"></script>
+
+
+        <script src=  
+"https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">  
+    </script>  
+    
+    <script src=  
+"https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">  
+    </script>  
+    
+    <link href=  
+"http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+        rel="stylesheet" type="text/css" />  
+   <!--      <link rel="stylesheet" type="text/css" href="{%static 'c/p.css'%}"> -->
     </head>
 
     <body>
-        
+        <div class="profile">
+            <div class="banner">
+                {% if p.b%}
+                    <div class="banner">
+                        <img src="{{p.b.url}}" alt="banner" class="bannerImage">
+                    </div>
+                {%endif%}
+            <div class="content">
+
+               <!--  <div class="avatar">
+                    <img src="{{p.a.url}}" alt="avatar" class="avatarImage">
+                </div> -->
+                
+                <div class="username">
+                    <div >
+                        <h4 class="usernameText">{{p.u.username}}</h4>
+                    </div>
+                </div>
+                {% if p.n%}
+                <div class="name">
+                    <p>{{p.n}}</p>
+                </div>
+                {% endif%}
+
+                <div id="followButton">
+                    {%include 'u/ep/fb.html'%}
+                </div>
+                
+
+                <div class="diaries">
+                    {% include 'u/ep/del.html'%}
+                </div>
+                <div class="entries">
+                    <div class="entry">
+
+                    </div>
+                </div>
+
+                </div>
+            </div>
+            </div>
+                
+                
+            
+        </div>
+
+        <script>
+            
+            document.body.addEventListener('htmx:configRequest', (event)=>{
+                event.detail.headers['X-CSRFToken'] = '{{csrf_token}}';
+            })
+            
+        </script>
     </body>
 
 </html>

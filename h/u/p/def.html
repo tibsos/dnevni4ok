@@ -1,0 +1,15 @@
+<div class="add-entry">
+    <form method="POST">
+        {%csrf_token%}
+        <div class="entry-form">
+            <div class="entry-title">
+                {{def.t}}
+            </div>
+            <div class="entry-content">
+                {{def.c}}
+            </div>
+        </div>
+        
+        <button type="submit" name="create-entry">Создать запись</button>
+    </form>
+</div>

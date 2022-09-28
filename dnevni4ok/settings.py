@@ -12,7 +12,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'u','d',
+    'u','d','s',
 ]
 
 MIDDLEWARE = [
@@ -61,11 +61,17 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 TIME_ZONE = 'UTC'
 USE_I18N = True
-USE_TZ = True
-STATIC_URL = 'static/'
+L10N=False
+USE_TZ = False
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS=(
+    os.path.join(BASE_DIR,'static/'),
+)
 MEDIA_URL='uploads/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'uploads')
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+#ALLOWED_UPLOAD_IMAGES = ('gif', 'bmp', 'jpeg')

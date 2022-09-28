@@ -1,0 +1,60 @@
+body{
+    font-family: Futura,Trebuchet MS,Arial,sans-serif; 
+    height:100%;
+}
+.banner{
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    margin:auto;
+    z-index:0;
+}
+.bannerImage{
+    width:100%;
+    height:100%;
+}
+
+.content{
+    width:800px;
+    height:600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -300px;
+    margin-left: -400px;
+    background-color:black;
+    border-radius:50px;
+
+    backdrop-filter: blur(3px) saturate(178%);
+    -webkit-backdrop-filter: blur(3px) saturate(178%);
+    background-color: rgba(255, 255, 255, 0.47);
+
+    box-shadow:  5px 5px 15px #d1d1d1,
+             -5px -5px 15px #ffffff;
+}
+
+
+
+.avatar{
+    position:absolute;
+    top:200px;
+    width:100%; 
+}
+
+.avatarImage{
+    width:175px;
+    height:175px;
+    border-radius:100px;
+    margin:auto;
+}
+
+.username{
+    position:relative;
+    top:350px;
+    width:100%;
+}
+.usernameText{
+    text-align:center;
+}

@@ -1,0 +1,9 @@
+
+{%include 'u/p/df.html'%}
+{% for d in d%}
+<div class="diary">
+    {{d.t}}
+</div>
+{%empty%}
+<p>У вас еще нет дневничков!</p>
+{%endfor%} 

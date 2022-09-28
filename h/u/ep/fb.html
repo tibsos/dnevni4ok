@@ -1,0 +1,15 @@
+<form method="POST">
+    {%csrf_token%}
+    <input name="p" value="{{u}}">
+ 
+    {% if f%}
+    
+        <button hx-post="{%url 'd:f'%}" hx-target="#followButton" type="submit">Отписаться</button>
+
+    {% else %}
+
+
+        <button  hx-post="{%url 'd:f'%}" hx-target="#followButton" type="submit">Подписаться</button>
+
+    {% endif%}
+</form>

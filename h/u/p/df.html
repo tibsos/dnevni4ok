@@ -1,0 +1,63 @@
+<body>
+
+    <form method="POST">
+        {%csrf_token%}
+        <div id="td">
+
+            <input onKeyUp="inputUser()" type="text" id="title" name='dt' autocomplete="on">
+        </div>
+        <input onPaste="checkAt()" type="text" id="onlyUser" placeholder="onlyUser" name="dtm" class="" autocomplete="on">
+    <input type="text" placeholder="d" name="dd" class="">
+    
+    <button hx-post="{%url 'd:cd'%}" hx-target="#diaryList" >Создать дневничок</button>
+</form>
+
+<script>
+
+
+
+function inputUser(){
+        u=document.querySelector('#title').value.split('@')
+        if (u.length>1){
+            u=u[u.length-1];
+            document.querySelector('#onlyUser').focus();
+            document.querySelector('#onlyUser').select();
+            
+        }
+            
+}
+
+function formatTitle(){
+    t=document.querySelector('#title').value;
+    i=t.indexOf('@');
+    t=t.slice(0,i);
+    s=document.querySelector('#onlyUser').value.split('@');
+    n=s[0];
+    u=s[1];
+    l=n.length-1;
+    fn=n.slice(0,l);
+    if (fn=='None'){
+        document.querySelector('#title').value=t+"@"+u;
+    }
+    else{
+
+        document.querySelector('#title').value=t+"@"+u+" ("+fn+")";
+    }
+    document.querySelector('#onlyUser').value=''
+    
+}
+
+      $( function() {
+        var availableUsers = [
+            {% for p in ap %}
+                "{{p.n}} @{{p.u.username}}",
+            {% endfor %}
+        ];
+        $("#onlyUser").autocomplete({
+          source: availableUsers,
+          close:function(event,ui){formatTitle()}
+        });
+      } );
+      
+</script>
+</body>

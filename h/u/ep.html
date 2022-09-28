@@ -1,0 +1,124 @@
+{%load static%}
+
+<html>
+    <head>
+        <title>
+            
+        </title>
+        <meta charset="UTF-8">
+        <meta content="origin" name="referrer">
+        <meta name="description" content="">
+        <meta name="keywords" content="">
+
+        <link rel="stylesheet" type="text/css" href="{%static 'c/ep.css'%}">
+        
+        <script src="https://unpkg.com/htmx.org@1.8.0"></script>
+
+
+        <script src=  
+"https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js">  
+    </script>  
+    
+    <script src=  
+"https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js">  
+    </script>  
+    
+    <link href=  
+"http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+        rel="stylesheet" type="text/css" />  
+
+    </head>
+
+    <body>
+
+        
+
+            <a href="/"><button>Cog</button></a>
+            <div class="bannerAvatar">
+                    <div class="banner">
+                        <img src="{{p.b.i.url}}" alt="banner">
+                    </div>
+
+                <div class="avatar">
+                    <img src="{{p.a.url}}" alt="avatar">
+                </div>
+            </div>
+
+
+            {% if p.n%}
+            <div class="name">
+                <h4>{{p.n}}</h4>
+            </div>
+            {% endif%}
+            <div class="username">
+                <p>{{p.u.username}}</p>
+            </div>
+            <div class="diaries">
+                <button id="add-diary" class="add-diary-button">+</button>
+                <div class="diaryList" id="diaryList">
+                    
+                    {%include 'u/p/dl.html'%}
+                </div>
+                
+            </div>
+            <div class="entriesAndForm" >
+                <div class="entryForm">
+                    {%include 'u/p/def.html'%}
+                </div>
+                <div id="entries">
+                    {%include 'u/p/del.html'%}
+                    
+                </div>
+                    </div>
+                
+            </div>
+        </div>
+    
+    <script>         
+
+    const container = document.querySelector("#entries");
+    var matches = container.querySelectorAll("div.entries > p");
+
+    var positions=[];
+    matches.forEach((i)=>{
+        l=positions.length;
+        positions.push(i.innerHTML)
+    });
+
+    $(window).scroll(function(){
+            if (matches.length>0){
+                var totalScroll=$(window).scrollTop();
+                var windowHeight=window.innerHeight;
+                var bottomScreen=totalScroll+windowHeight;  
+                positions.forEach((i)=>{
+                    var d= document.getElementById(i);
+                    var postPos=d.getBoundingClientRect().top+window.scrollY;
+                    var postHeight=d.clientHeight;
+                    var endOfPost=postPos+postHeight;
+                    var postOutOfView = endOfPost+windowHeight;
+                if (bottomScreen>endOfPost){
+                    $.ajax(
+    {
+        type:"POST",
+        url: "/udev/",
+        data:{
+                 uid: i
+        },
+        headers: {"X-CSRFToken": '{{ csrf_token }}'}
+});
+            positions.splice(positions.indexOf(i),1);
+                }          
+            }
+                );
+            }
+    })
+
+    document.body.addEventListener('htmx:configRequest', (event)=>{
+                event.detail.headers['X-CSRFToken'] = '{{csrf_token}}';
+            })
+
+    </script>
+
+    </body>
+
+</html>

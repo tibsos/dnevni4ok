@@ -10,8 +10,10 @@
     </head>
 
     <body>
-        <a href="{%url 'create-entry'%}"><button>+</button></a>
+        <button>+</button>
         <a href="{%url 'logout'%}"><button>Выйти</button></a>
+        <a href="/{{u.username}}/"><button>Profile</button></a>
+        <a href="{%url 'd:a'%} "><button>Архив</button></a>
     </body>
 
 </html>

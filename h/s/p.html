@@ -1,0 +1,43 @@
+{%load static%}
+
+<html>
+
+    <head>
+        <link rel="stylesheet" href="{%static 'c/s/p.css'%}">
+    </head>
+
+    <body>
+        <script>
+        
+            function updateChoice(){
+                s=document.querySelector('input[name=banners]:checked').value;
+                document.querySelector('#selectedBanner').value=s;
+            }
+
+            function chooseFile(){
+                document.querySelector('#addFileButton').click();
+            }
+
+        </script>
+        
+            <form method="POST">
+                {%csrf_token%}
+            {% for d in db%}
+                <input id="{{d.ca}}" type="radio" name="banners" value="{{d.uid}}" onClick="updateChoice()" />
+                <label for="{{d.ca}}"><img src="{{d.i.url}}"></label>
+                {% endfor%}
+                <input name='selectedBanner' id="selectedBanner">
+                <button type="submit" name="defaultBanners">Сохранить</button>
+            </form>
+        
+            <form method="POST">
+                {%csrf_token%}
+                {{bf.i}}
+                <button class='addFileButton' onClick="chooseFile()">+</button>
+            </form>
+            
+        
+        </body>
+</html>
+
+
